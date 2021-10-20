@@ -6,18 +6,19 @@ const { Category, Product } = require("../../models");
 router.get("/", (req, res) => {
   // find all categories
   // be sure to include its associated Products
-  Category.findAll({
-    attributes: {},
+  Category.findAll(
+    {
     include: [
       {
         model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       },
     ],
-  })
+    })
   .then((dbCategoryData) => res.json(dbCategoryData))
   .catch((err) => {
     console.log(err);
-    res.status().json(err);
+    res.status(500).json(err);
   })
 
 });
@@ -32,13 +33,14 @@ router.get("/:id", (req, res) => {
     include: [
       {
         model: Product,
+        attributes: ['id', 'product_name', 'price', 'stock', 'category_id']
       },
     ],
   })
   .then((dbCategoryData) => res.json(dbCategoryData))
   .catch((err) => {
     console.log(err);
-    res.status().json(err);
+    res.status(404).json(err);
   })
 });
 
@@ -51,7 +53,7 @@ router.post("/", (req, res) => {
   .then((dbCategoryData) => (dbCategoryData))
   .catch((err) => {
     console.log(err);
-    res.status().json(err);
+    res.status(500).json(err);
   })
 });
 
@@ -65,7 +67,7 @@ router.put("/:id", (req, res) => {
   .then((dbCategoryData) => res.json(dbCategoryData))
   .catch((err) => {
     console.log(err)
-    res.status().json(err);
+    res.status(500).json(err);
   })
 });
 
@@ -79,7 +81,7 @@ router.delete("/:id", (req, res) => {
     .then((dbCategoryData) => (dbCategoryData))
     .catch((err) => {
       console.log(err);
-      res.status().json(err);
+      res.status(500).json(err);
     });
 });
 
