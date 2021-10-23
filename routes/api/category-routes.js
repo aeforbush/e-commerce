@@ -46,11 +46,22 @@ router.get("/:id", (req, res) => {
 
 router.post("/", (req, res) => {
   // create a new category
-  // expects {category_name}
+    /* expects = req.body to be
+    {
+      product_name: "Basketball",
+      price: 200.00,
+      stock: 3,
+      tagIds: [1, 2, 3, 4]
+    }
+  */
   Category.create({
-    category_name: req.body.category_name
+    category_name: req.body.category_name,
+    price: req.body.price,
+    stock: req.body.stock,
+    category_id: req.body.category_id,
+    tagsIds: req.body.tag_id
   })
-  .then((dbCategoryData) => (dbCategoryData))
+  .then((dbCategoryData) => res.json(dbCategoryData))
   .catch((err) => {
     console.log(err);
     res.status(500).json(err);
@@ -59,7 +70,7 @@ router.post("/", (req, res) => {
 
 router.put("/:id", (req, res) => {
   // update a category by its `id` value
-  Category.update({
+  Category.update(req.body, {
     where: {
       id: req.params.id,
     },
@@ -78,7 +89,7 @@ router.delete("/:id", (req, res) => {
       id: req.params.id,
     },
   })
-    .then((dbCategoryData) => (dbCategoryData))
+    .then((dbCategoryData) => res.json(dbCategoryData))
     .catch((err) => {
       console.log(err);
       res.status(500).json(err);
