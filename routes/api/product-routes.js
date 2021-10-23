@@ -94,7 +94,7 @@ router.post("/", (req, res) => {
 // update product
 router.put("/:id", (req, res) => {
   console.log("=================");
-  console.log(req.body);
+  console.log(req.params.id);
   console.log("=================");
   // update product data
   Product.update(req.body, {
