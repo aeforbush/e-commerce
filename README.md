@@ -33,7 +33,7 @@ N/A
 
 ## Built With 
 * Javascipt
-* MySQL
+* MySQL2
 * Express.js
 * Dotenv
 * Sequelize
